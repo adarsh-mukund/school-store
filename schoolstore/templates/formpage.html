@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fill The Details</title>
+    <link rel="stylesheet" href="/static/css/formpage.css">
+</head>
+<body>
+      <div class="container">
+          <img src="/static/images/bgrnd.jpg">
+          <div class="fillform">
+              <button onclick="document.getElementById('user-login').style.display = 'block' " id="login" type="submit" class="login-button">Click to view the form</button>
+          </div>
+          <div id="user-login" class="login-form">
+
+              <form action="" class="login-container" method="post" id="myForm">
+              <h1>Fill The Form</h1>
+
+                  <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" min="0" max="120" required><br>
+
+        <label>Gender:</label>
+        <input type="radio" id="male" name="gender" value="male" required>
+
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="female">
+
+        <label for="female">Female</label><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" required></textarea><br>
+
+<label for="department">Department:</label>
+                  <select id="department" name="department" required onchange="populateSubDistrict()">
+                      <option value="">--Select Department--</option>
+                      <option value="computerscience">Computer Science</option>
+                      <option value="commerce">Commerce</option>
+                      <option value="electronics">Electronics</option>
+                      <option value="mathematics">Mathematics</option>
+                      <option value="biology">Biology</option>
+                  </select><br>
+
+        <label for="courses">Courses:</label>
+                  <select id="courses" name="courses" required>
+                      <option value="courses">--Select Courses--</option>
+                  </select><br>
+
+
+
+        <label for="purpose">Purpose:</label>
+        <select id="purpose" name="purpose" required>
+            <option value="">--Select purpose--</option>
+            <option value="savings">Enquiry</option>
+            <option value="current">Place Order</option>
+            <option value="fixed-deposit">Return</option>
+            <option value="recurring-deposit">Help</option>
+        </select><br>
+
+        <label>Materials Provided:</label>
+        <input type="checkbox" id="notebook" name="notebook" value="notebook">
+        <label for="notebook">Note Book</label>
+        <input type="checkbox" id="pen" name="pen" value="pen">
+        <label for="pen">Pen</label>
+        <input type="checkbox" id="papers" name="papers" value="papers">
+        <label for="papers">Papers</label><br>
+
+        <button type="submit">Submit</button>
+
+              </form>
+              <a href="{% url 'index' %}">
+                     <button type="submit">Log Out</button>
+                     </a>
+
+          </div>
+      </div>
+        <div id="success-message" style="display:none; ">Application Accepted <br><br>
+            <a id="home-link" href="{% url 'index' %}">Click Here To Go Home</a>
+        </div>
+
+               <script>
+
+const departmentSelect = document.getElementById("department");
+const coursesSelect = document.getElementById("courses");
+
+departmentSelect.addEventListener("change", function() {
+    coursesSelect.innerHTML = "<option value=''>--Select courses--</option>"; // add this line to add the first option to the courses dropdown
+    if (departmentSelect.value === "computerscience") {
+  coursesSelect.innerHTML += "<option value='a'>B.Tech CS</option>";
+  coursesSelect.innerHTML += "<option value='c'>BCA</option>";
+  coursesSelect.innerHTML += "<option value='h'>MCA</option>";
+  coursesSelect.innerHTML += "<option value='k'>Diploma</option>";
+  coursesSelect.innerHTML += "<option value='m'>B.E</option>";
+    } else if (departmentSelect.value === "commerce") {
+  coursesSelect.innerHTML += "<option value='a'>BBA</option>";
+  coursesSelect.innerHTML += "<option value='a'>MCA</option>";
+  coursesSelect.innerHTML += "<option value='k'>CA</option>";
+  coursesSelect.innerHTML += "<option value='k'>B.Com</option>";
+  coursesSelect.innerHTML += "<option value='p'>BBI</option>";
+} else if (departmentSelect.value === "electronics") {
+  coursesSelect.innerHTML += "<option value='a'>B.Tech ECE</option>";
+  coursesSelect.innerHTML += "<option value='i'>M.Tech </option>";
+  coursesSelect.innerHTML += "<option value='k'>Diploma</option>";
+  coursesSelect.innerHTML += "<option value='m'>BSC</option>";
+  coursesSelect.innerHTML += "<option value='n'>MSC</option>";
+} else if (departmentSelect.value === "mathematics") {
+  coursesSelect.innerHTML += "<option value='i'>BSC</option>";
+  coursesSelect.innerHTML += "<option value='k'>MSC</option>";
+  coursesSelect.innerHTML += "<option value='k'>Geometry</option>";
+  coursesSelect.innerHTML += "<option value='t'>BA</option>";
+} else if (departmentSelect.value === "biology") {
+  coursesSelect.innerHTML += "<option value='k'>BSc</option>";
+  coursesSelect.innerHTML += "<option value='k'>MSc</option>";
+  coursesSelect.innerHTML += "<option value='k'>MBBS</option>";
+  coursesSelect.innerHTML += "<option value='k'>MD</option>";
+}
+});
+
+const form = document.querySelector("form");
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const successMessage = document.getElementById("success-message");
+  const homeLink = document.getElementById("home-link");
+
+  successMessage.style.display = "block";
+  homeLink.href = "{% url 'index' %}";
+
+    const container = document.querySelector(".login-container");
+    container.innerHTML = "";
+    container.appendChild(messageDiv);
+});
+
+</script>
+
+</body>
+</html>
